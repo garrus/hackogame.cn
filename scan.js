@@ -1,18 +1,24 @@
 /*
-
-$("body").append('<script type="text/javascript" src="http://s11.ogame.cn/scan.js"></script>');
-
-
+javascript:(function(){var d=document,s=d.createElement("script");d.src="http://lightofsource.sinaapp.com/scan.wogame.net.js";d.body.appendChild(s);})();
  */
 
+document.body.innerHTML = "<h2>正在加载……</h2>";
+prepare();
 
-(function(){
-
+function prepare() {
     if (typeof window.$ == 'undefined') {
-        document.write('No jquery loaded.');
-        return;
+        (function () {
+            var s = document.createElement("script");
+            s.src = "http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js";
+            document.body.appendChild(s);
+        })();
+        setTimeout(prepare, 500);
+    } else {
+        runHacker();
     }
+}
 
+function runHacker(){
     var g = 0;
     var s = 0;
     var scanning = false;
@@ -29,7 +35,12 @@ $("body").append('<script type="text/javascript" src="http://s11.ogame.cn/scan.j
     var scanType = {
         player: {
             match: function (pos, value) {
-                return pos.alliance == value || pos.player == value;
+                if (value.indexOf(",")) {
+                    value = value.split(",");
+                    return value.indexOf(pos.alliance) != -1 || value.indexOf(pos.player) != -1;
+                } else {
+                    return pos.alliance == value || pos.player == value;
+                }
             },
             desc: function(pos){
                 return '发现 ' + pos.player + ' (排名' + pos.rank + ') 位于 ' + pos.position;
@@ -54,17 +65,26 @@ $("body").append('<script type="text/javascript" src="http://s11.ogame.cn/scan.j
     };
 
     var scanRange = [];
-    var targetType, targetValue, isTargetOff;
+    var targetType, targetValue, targetOff, targetHoliday;
 
 
     $("body").html('<div>' +
     '<h3>扫描类型：<select id="target-type">' +
-    '<option value="player">联盟和玩家</option>' +
+    '<option value="player">联盟或玩家名</option>' +
     '<option value="debris">废墟所需回收船不低于</option>' +
     '<option value="rank">排名不低于</option>' +
     '</select>' +
     '<h3>扫描目标值：<input id="target-value"> </h2>' +
-    '<h4><label for="target-off">7/28天未活动：</label><input type="checkbox" id="target-off" checked="true"></h4>' +
+    '<h4><label for="target-off">7/28天未活动：</label><select id="target-off">' +
+    '<option value="-1" selected="selected">不限</option>' +
+    '<option value="1">是</option>' +
+    '<option value="0">否</option>' +
+    '</select></h4>' +
+    '<h4><label for="target-holiday">假期模式：</label><select id="target-holiday">' +
+    '<option value="-1">不限</option>' +
+    '<option value="1">是</option>' +
+    '<option value="0" selected="selected">否</option>' +
+    '</select></h4>' +
     '<h3>扫描范围：' +
     '<input type="checkbox" class="target-range" id="range-1" value="1" checked="true"> <label for="range-1">Y1</label> ' +
     '<input type="checkbox" class="target-range" id="range-2" value="2" checked="true"> <label for="range-2">Y2</label> ' +
@@ -77,7 +97,7 @@ $("body").append('<script type="text/javascript" src="http://s11.ogame.cn/scan.j
     '<input type="checkbox" class="target-range" id="range-9" value="9" checked="true"> <label for="range-9">Y9</label> ' +
     '</h2>' +
     '<button id="start-scan">开始扫描</button><button id="stop-scan">停止</button>' +
-    '<h3>正在扫描星系 <span id="cur" style="color: cyan;"></span> ...</h3>' +
+    '<h3>正在扫描 <span id="cur" style="color: cyan;"></span> ...</h3>' +
     '<ul id="result" style="color: #aaa; font-family: \'微软雅黑\', verdana, arial, helvetica, sans-serif; font-size: 0.9em;" ></ul>' +
     '</div>')
         .css({"background-color": "black", "color": "#bbb"})
@@ -89,9 +109,11 @@ $("body").append('<script type="text/javascript" src="http://s11.ogame.cn/scan.j
                    scanRange.push(parseInt(elem.value));
                }
             });
+            scanRange.reverse();
             targetType = $("#target-type").val();
             targetValue = $("#target-value").val();
-            isTargetOff = !!$("#target-off")[0].checked;
+            targetOff = $("#target-off").val();
+            targetHoliday = $("#target-holiday").val();
             desc = scanType[targetType].desc;
             scanning = true;
             workers.forEach(function(worker){
@@ -99,7 +121,8 @@ $("body").append('<script type="text/javascript" src="http://s11.ogame.cn/scan.j
                     action: "prepare",
                     type: targetType,
                     value: targetValue,
-                    isOff: isTargetOff
+                    off: targetOff,
+                    holiday: targetHoliday
                 });
             });
 
@@ -198,7 +221,7 @@ $("body").append('<script type="text/javascript" src="http://s11.ogame.cn/scan.j
     MyWorker.prototype.postMessage = function(data){
         switch (data.action) {
             case "prepare":
-                this.isMatch = this.buildMatchFunction(data.type, data.value, data.isOff);
+                this.isMatch = this.buildMatchFunction(data);
                 console.log('Prepared. id=' + this.id);
                 break;
             case "scan":
@@ -208,17 +231,17 @@ $("body").append('<script type="text/javascript" src="http://s11.ogame.cn/scan.j
         }
     };
 
-    MyWorker.prototype.buildMatchFunction = function(type, value, isOff){
-        var scanMatchFunc = scanType[type].match;
-        if (isOff) {
-            return function(pos){
-                return !pos.holiday && (pos.off28 || pos.off7) && scanMatchFunc.call(null, pos, value);
+    MyWorker.prototype.buildMatchFunction = function(options){
+        var scanMatchFunc = scanType[options.type].match;
+        return function(pos){
+            if ((options.off == 1 && !(pos.off28 || pos.off7))
+                || (options.off == 0 && (pos.off28 || pos.off7))
+                || (options.holiday == 1 && pos.holiday)
+                || (options.holiday == 0 && !pos.holiday)) {
+                return false;
             }
-        } else {
-            return function (pos) {
-                return !pos.holiday && scanMatchFunc.call(null, pos, value);
-            }
-        }
+            return scanMatchFunc.call(null, pos, options.value);
+        };
     };
 
     MyWorker.prototype.scanSystem = function(galaxy, system) {
@@ -260,9 +283,9 @@ $("body").append('<script type="text/javascript" src="http://s11.ogame.cn/scan.j
             pos: pos
         });
     };
+}
 
 
-})();
 
 
 

@@ -59,7 +59,7 @@
         }
 
         if (isEnergyNegative()) {
-            return build(ID.solarPlant) || build(ID.nuclearPlant)
+            //return build(ID.solarPlant) || build(ID.nuclearPlant)
         }
 
 		if (build(ID.nano) || (levelOf(ID.robot) < 10 && build(ID.robot))) {
