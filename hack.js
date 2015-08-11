@@ -39,7 +39,8 @@
     setInterval(loop, 3000);
 	var i = 0;
     function loop(){
-        upgradeBase();
+        upgradeEco();
+        //upgradeBase();
 		//upgradeTech();
 		//updateMilitaryTech();
 		i++;
@@ -52,6 +53,28 @@
 		}
     }
 
+    function upgradeEco(){
+        if (isBuilding()) {
+            return false;
+        }
+
+        if (levelOf(ID.metalMine) - levelOf(ID.crystalMine) < 4) {
+            return build(ID.metalMine);
+        }
+
+        //if (levelOf(ID.crystalMine) - levelOf(ID.deuteriumMine) < 2) {
+            return build(ID.crystalMine);
+        //}
+
+
+
+        //if (levelOf(ID.metalMine) - levelOf(ID.deuteriumMine) > 5) {
+        //    return build(ID.deuteriumMine);
+        //}
+
+    }
+
+
     function upgradeBase(){
 
         if (isBuilding()) {
@@ -59,7 +82,7 @@
         }
 
         if (isEnergyNegative()) {
-            //return build(ID.solarPlant) || build(ID.nuclearPlant)
+            return build(ID.solarPlant) || build(ID.nuclearPlant)
         }
 
 		if (build(ID.nano) || (levelOf(ID.robot) < 10 && build(ID.robot))) {
