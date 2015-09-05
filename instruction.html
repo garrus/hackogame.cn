@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            background-color: white;
+            margin: 0 auto;
+            width: 1000px;
+            padding: 20px 60px 40px;
+            box-shadow: 0 0 3px 1px white;
+        }
+
+        h1,h2,h3,h4 {
+            font-family: 'Arial','Microsoft Yahei', sans-serif;
+        }
+        p {
+            line-height: 20pt;
+            font-size: 18px;
+            color: steelblue;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+<h1>插件使用方法</h1>
+<hr>
+
+<h2>第一步，把下面这段代码存为书签</h2>
+<textarea cols="80" rows="4">javascript:(function(){var w=window.open("http://s11.ogame.cn/proxy.html");setTimeout(function(){var d=w.document,s=d.createElement("script");s.src="http://lightofsource.sinaapp.com/scan.wogame.net.js";d.body.appendChild(s);},1000);})();</textarea>
+<fieldset style="margin-top: 15px; border-radius: 15px;">
+    <legend style="font-size: 1.2em; color: gray; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">各浏览器的添加书签的方法</legend>
+    <ul>
+        <li>
+            <h3>Chrome（谷歌）浏览器</h3>
+            <p>
+                按<code>Ctrl+Shift+O</code>（字母O，不是数字0）或者地址栏输入<code>chrome://bookmarks</code>打开书签管理器，
+                可以看到窗口被分为左右两栏。在右边那一栏的空白处 右键->添加网页，会发现多出来一行，在第一个输入框里随便填个名字（比如“搜星图”），
+                第二输入框里粘贴上面的代码，回车保存即可。
+            </p>
+        </li>
+
+        <li>
+            <h3>Firefox（火狐）浏览器</h3>
+            <p>
+                按<code>Ctrl+Shift+B</code>打开“我的足迹”，会弹出一个新窗口，也是分为左右两栏。在左边栏的书签工具栏上点击 右键->新建书签，
+                弹出一个新建书签的窗口。在名称那一栏随便天个名字（比如“搜星图”），在地址那一栏粘贴上面的代码，然后点“添加”按钮保存即可。
+            </p>
+        </li>
+
+        <li>
+            <h3>QQ浏览器</h3>
+            <p>
+                点击右上角菜单（就是三条横线那个图标），点书签->整理，进入书签管理器。点击新建->新建书签后，下面会多出来一行，在第一个输入框
+                里随便填个名字（比如“搜星图”），第二输入框里粘贴上面的代码，回车保存即可。
+            </p>
+        </li>
+
+        <li>
+            <h3>搜狗浏览器</h3>
+            <p>
+                按<code>Ctrl+B</code>或者地址栏输入<code>se://bookmarks</code>打开本地搜藏夹。右上方有个带下拉菜单的
+                新建文件夹按钮，点下拉菜单选择 新建收藏，会看到下面右边那一栏会多出来一行，在第一个输入框里随便填个名字（比如“搜星图”），
+                第二输入框里粘贴上面的代码，回车保存即可。
+            </p>
+        </li>
+
+        <li>
+            <h3>遨游浏览器</h3>
+            <p>
+                无解。这个浏览器一刀切的屏蔽了通过脚本打开新窗口的功能，估计是为了避免用户遭受弹窗广告之扰，不过自然也阻碍了我们
+                这些高级玩家。<br>
+                <small style="color: gray;">p.s.一路看下来，就这个浏览器的UI最丑，界面响应速度也最慢，只能达到IE9的水准，目测活不长了~</small>
+            </p>
+        </li>
+
+        <li>
+            <h3>360浏览器</h3>
+            <p>
+                ……还请大家自行百度方法，因为我不想在机子上装任何360的软件，即使只是那么一小会儿。
+            </p>
+        </li>
+
+        <li>
+            <h3>其他各种浏览器</h3>
+            <p>
+                相对小众，还请自行百度方法。思路就是找到书签管理器，然后手动添加一个书签。可以参考上面几种浏览器。有的浏览器把书签叫做收藏。
+                英文名叫bookmark。
+            </p>
+        </li>
+    </ul>
+    <p style="color: red; margin-left: 20px;">以上方法亲测可用，使用的均是最新版本</p>
+</fieldset>
+
+<h2>第二步，进入游戏界面，并进入一个有足够多重氢的星球（或月球）</h2>
+<p>
+    扫一次全图需要两万多重氢，扫单独一个银河系需要2500的重氢，所以请自行理解“足够多”的含义。<br>
+    所以如果你发现扫不出来结果，那就看一下当前星球上是否没重氢了。<br>
+    扫的过程中可以切换星球，但切换到的那个星球上也要有足够的重氢。<br>
+    <strong>所以如果你是刚开始玩，那就不要搞这个，分分钟把你的重氢吃光不会有人赔给你~</strong>
+</p>
+
+<h2>第三步，打开第一步创建的书签</h2>
+<p>
+    这一步会打开一个新窗口，如果有的浏览器或者插件作死想阻拦之，请自行处置。<br>
+    新窗口打开后大约1秒钟会出现“正在加载”，然后稍等一小会儿界面就出来了。如果始终是空白，请确认你是不是在游戏界面打开的书签；如果一直停留在“正在加载”，那可能你网速不太好，把窗口关了重新试试。（不要点刷新！）
+</p>
+
+<h2>第四步，使用……</h2>
+<p>这个就懒的写了，总共就那么几个功能选项，自己摸索几下就会了。摸索不来说明智商不够玩这个游戏……</p>
+
+
+<div style="margin-top: 70px;">祝大家玩得愉快。<br>p.s. 暂时不考虑新加功能，但发现现有功能有bug或者按上面的方法打不开插件可以联系我修正。</div>
+</div>
+
+
+</body>
+</html>

@@ -39,16 +39,16 @@
     setInterval(loop, 3000);
 	var i = 0;
     function loop(){
-        upgradeEco();
+        //upgradeEco();
         //upgradeBase();
-		//upgradeTech();
+		upgradeTech();
 		//updateMilitaryTech();
 		i++;
 		if (i%11 == 0) {
 			if (i%2 == 1) {
 				$("#overview").click();
 			} else {
-				$("#station").click();
+				$("#research").click();
 			}
 		}
     }
@@ -140,17 +140,18 @@
         if (isResearching()) return false;
 
         return Math.random() < 0.5
-            && (build(ID.tech.gravity)
-            || build(ID.tech.crossGalaxyResearch)
-            || build(ID.tech.astrophysics)
-            || build(ID.tech.hyperSpaceEngine)
+            && ( false
+			//|| build(ID.tech.gravity)
+            //|| build(ID.tech.crossGalaxyResearch)
+            //|| build(ID.tech.astrophysics)
+            //|| build(ID.tech.hyperSpaceEngine)
             || build(ID.tech.impulseEngine)
-            || build(ID.tech.burningEngine)
-            || build(ID.tech.hyperSpace)
-            || build(ID.tech.ion)
-            || build(ID.tech.neutron)
-            || build(ID.tech.laser)
-            || build(ID.tech.space)
+            //|| build(ID.tech.burningEngine)
+            //|| build(ID.tech.hyperSpace)
+            //|| build(ID.tech.ion)
+            //|| build(ID.tech.neutron)
+            //|| build(ID.tech.laser)
+            //|| build(ID.tech.space)
             || build(ID.tech.computing)
             || build(ID.tech.weapon)
             || build(ID.tech.shield)

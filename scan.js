@@ -41,71 +41,86 @@ function runHacker(){
                     return pos.alliance == value || pos.player == value;
                 }
             },
-            columns: {
-                "position": "坐标",
-                "player": "玩家",
-                "alliance": "联盟",
-                "rank": "排名",
-                "activity": "最近活动",
-                "moon": "月球",
-                "moonactivity": "月球最近活动",
-                "holiday": "休假模式"
-            }
+            columns: [
+                "position",
+                "status",
+                "player",
+                "alliance",
+                "rank",
+                "debris-recycles",
+                "activity",
+                "moon",
+                "moonactivity"
+            ]
         },
         debris: {
             match: function(pos, value){
                 return pos.recyship >= value;
             },
-            columns: {
-                "position": "坐标",
-                "player": "玩家",
-                "debris-metal": "废墟-金属",
-                "debris-crystal": "废墟-晶体",
-                "debris-recycles": "需要回收船",
-                "activity": "最近活动",
-                "holiday": "休假模式"
-            }
+            columns: [
+                "position",
+                "status",
+                "player",
+                "debris-metal",
+                "debris-crystal",
+                "debris-recycles",
+                "activity",
+                "moon",
+                "moonactivity"
+            ]
         },
         rank: {
             match: function(pos, value){
                 return pos.rank && pos.rank <= value;
             },
-            columns: {
-                "position": "坐标",
-                "player": "玩家",
-                "alliance": "联盟",
-                "rank": "排名",
-                "activity": "最近活动",
-                "moon": "月球",
-                "moonactivity": "月球最近活动",
-                "holiday": "休假模式",
-                "isOff": "7/28天未活动"
-            }
+            columns: [
+                "position",
+                "status",
+                "player",
+                "alliance",
+                "rank",
+                "activity",
+                "moon",
+                "moonactivity"
+            ]
         }
     };
 
 
     var renderer = {
         nullContent: '<span style="color: #777;">-</span>',
+        label: {
+            "position": "坐标",
+            "player": "玩家",
+            "alliance": "联盟",
+            "debris-metal": "废墟-金属",
+            "debris-crystal": "废墟-晶体",
+            "debris-recycles": "需要回收船",
+            "rank": "排名",
+            "activity": "最近活动",
+            "moon": "月球",
+            "moonactivity": "月球最近活动",
+            "status": "活跃状态"
+        },
 
         renderTable: function(){
             var html = "<table style=\"width: 100%; text-align: center;\"><thead><tr>";
-            for (var key in columns) {
-                if (columns.hasOwnProperty(key)) {
-                    html += "<th>" + columns[key] + "</th>";
-                }
-            }
+            var label = this.label;
+            columns.map(function(column){
+                html += "<th>" + label[column] + "</th>";
+            });
             html += "</tr></thead><tbody></tbody></table>";
             $("#result").html(html);
         },
         renderRow: function(planet){
             var html = "<tr>";
-            var rowData = this.buildRowData(planet);
-            for (var key in columns) {
-                if (columns.hasOwnProperty(key)) {
-                    html += "<td>" + rowData[key] + "</td>";
-                }
+            if (planet.holiday) {
+                html = '<tr style="opacity: 0.3;">';
             }
+            var rowData = this.buildRowData(planet);
+            columns.map(function(column){
+                html += "<td>" + rowData[column] + "</td>";
+            });
             html += "</tr>";
             $("#result").find("tbody").append(html);
         },
@@ -120,10 +135,9 @@ function runHacker(){
                 "debris-crystal": this.renderResource(planet.crystal),
                 "debris-recycles": planet.recyship,
                 "activity": this.renderActivity(planet.activity),
-                "moon": typeof planet.moonactivity == "string" ? '<span style="color:darkolivegreen;">存在</span>' : this.nullContent,
+                "moon": typeof planet.moonactivity == "string" ? '<span style="color:darkolivegreen;">有</span>' : this.nullContent,
                 "moonactivity": typeof planet.moonactivity == "string" ? this.renderActivity(planet.moonactivity) : this.nullContent,
-                "holiday": planet.holiday == 0 ? this.nullContent : "是",
-                "isOff": planet.off7 == 1 || planet.off28 == 1 ? "是" : this.nullContent
+                "status": this.renderStatus(planet)
             };
         },
 
@@ -134,7 +148,7 @@ function runHacker(){
             if (num > 1000000) {
                 return '<span style="color: orange;">' + (num / 1000000).toFixed(1) + ' M</span>';
             }
-            return '<span style="color: darkslategray;">' + num + '</span>';
+            return '<span style="color: darkolivegreen;">' + num + '</span>';
         },
 
         renderActivity: function(activity){
@@ -145,6 +159,19 @@ function runHacker(){
                     return '<span style="color:red;">刚刚</span>';
                 default:
                     return '<span style="color:orange;">' + activity + "分钟</span>";
+            }
+        },
+
+        renderStatus: function(planet){
+            var str = "";
+            if (planet.holiday) {
+                return '<span style="color: lightsteelblue;">休</span>';
+            } else if (planet.off28) {
+                return '<span style="color: silver;">28</span>';
+            } else if (planet.off7) {
+                return '<span style="color: gray;">7</span>';
+            } else {
+                return this.nullContent;
             }
         }
     };
