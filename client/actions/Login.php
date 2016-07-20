@@ -8,13 +8,13 @@ class Login extends BaseAction{
 
 	//const LOGIN_FORM_URL = 'http://user.ogame.cn/userframe.php';
 	const LOGIN_URL = 'http://user.ogame.cn/logging.php?action=login';
-	const AFTER_LOGIN_URL = 'http://client.ogame.cn/game.php?s=11';
 
 	public $username;
 	public $password;
 
 	public function run(){
 
+		echo 'Login as user "'. $this->username. '" ... ', PHP_EOL;
 		$content = Helper::curl(self::LOGIN_URL, [
 			'passport' => $this->username,
 			'password' => $this->password,
@@ -22,10 +22,14 @@ class Login extends BaseAction{
 			'cookietime' => '315360000',
 			'inform' => '1',
 		], $this->getHeaders());
-		file_put_contents(RUNTIME_PATH. DIRECTORY_SEPARATOR. 'login.bin', $content);
+		
+		logHtml($content, 'login.bin');
+		
 		if (strpos($content, 'alert') === false) {
-			Helper::curl(self::AFTER_LOGIN_URL);
+			echo 'Login is a success!', PHP_EOL;
 			return true;
+		} else {
+			echo 'Login is a failure.', PHP_EOL;
 		}
 		return false;
 	}
@@ -38,7 +42,7 @@ class Login extends BaseAction{
 			'Accept-Language:en,zh-CN;q=0.8,zh;q=0.6,pt;q=0.4',
 			'Cache-Control:max-age=0',
 			'Connection:keep-alive',
-			'Content-Length:94',
+			//'Content-Length:94',
 			'Content-Type:application/x-www-form-urlencoded',
 			'Host:user.ogame.cn',
 			'Origin:http://user.ogame.cn',

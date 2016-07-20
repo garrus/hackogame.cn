@@ -18,3 +18,12 @@ function getAction($actionName, array $args=[]){
 		throw new RuntimeException('找不到动作 '. $actionName);
 	}
 }
+
+/**
+ * @param string $content
+ * @param string $name
+ */
+function logHtml($content, $name){
+	
+	file_put_contents(RUNTIME_PATH. DIRECTORY_SEPARATOR. 'html'. DIRECTORY_SEPARATOR. $name, $content);
+}

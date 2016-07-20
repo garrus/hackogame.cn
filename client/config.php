@@ -7,9 +7,12 @@ return [
 
 	'actions' => [
 		'Login' => [
-			'username' => 'frizen',
+			'username' => 'fireman',
 			'password' => '123qwe'
-		]
+		],
+		'SelectGameArea' => [
+			'area' => 12,
+		],
 	],
 
 
