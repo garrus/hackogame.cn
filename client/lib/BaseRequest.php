@@ -24,10 +24,6 @@ abstract class BaseRequest extends Object
     
     public function execute(Client $client){
         
-        $ret = $client->send($this);
-        if ($ret) {
-            return $this->buildResult($ret);
-        }
-        return $ret;
+        return $client->send($this);
     }
 }

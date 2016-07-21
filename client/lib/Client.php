@@ -4,7 +4,6 @@ namespace lib;
 
 
 use models\Queue;
-use models\Symbol;
 
 class Client extends Object
 {
@@ -26,9 +25,8 @@ class Client extends Object
      */
     public function execute(array $params)
     {
-        usleep(200000);
-        $content = Helper::curl($this->server, $params);
-        return json_decode($content, true);
+        list($code, $body, $header) = Helper::curl($this->server, $params);
+        return json_decode($body, true);
     }
 
     /**
