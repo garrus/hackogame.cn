@@ -4,10 +4,18 @@ require 'functions.php';
 $config = require 'config.php';
 define('AREA', 12);
 
+
+Game:
 $client = new \lib\Client(AREA);
 $request = new \request\CurrentPlanetQueue();
-/** @var \models\Queue $queue */
-$queue = $request->execute($client);
+try {
+	/** @var \models\Queue $queue */
+	$queue = $request->execute($client);
+} catch (\exception\LoginRequiredException $e) {
+	login();
+	goto Game;
+}
+
 
 $queue && $queue->dump();
 

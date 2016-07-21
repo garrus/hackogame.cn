@@ -3,6 +3,7 @@
 namespace lib;
 
 
+use exception\LoginRequiredException;
 use models\Queue;
 
 class Client extends Object
@@ -11,7 +12,10 @@ class Client extends Object
 
     public $server;
 
-
+    /**
+     * Client constructor.
+     * @param int $area
+     */
     public function __construct($area)
     {
         parent::__construct([
@@ -40,6 +44,9 @@ class Client extends Object
 
         foreach ($data as $object) {
             if ($object['error']) {
+                if ($object['error'] == 11001) {
+                    throw new LoginRequiredException;
+                }
                 echo 'Request failure! '. PHP_EOL;
                 echo 'Request: '. get_class($request), PHP_EOL;
                 echo 'Params: '. print_r($request->getParams(), true), PHP_EOL;

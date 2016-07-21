@@ -1,0 +1,17 @@
+{
+  "mod": "fleet",
+  "xid": "2",
+  "mission": "3",
+  "target_galaxy": "8",
+  "target_system": "241",
+  "target_planet": "15",
+  "target_type": "1",
+  "fleets": "203:50",
+  "speed": "10",
+  "stay_time": "1",
+  "fleet_metal": "44905",
+  "fleet_crystal": "19398",
+  "fleet_deuterium": "4452",
+  "attack_code": "",
+  "fleet_hash": "3c44j6"
+}

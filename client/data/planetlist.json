@@ -1,0 +1,128 @@
+[
+  {
+    "mod": "symbol",
+    "xid": 0,
+    "error": 0,
+    "msg": {
+      "flag1": 0,
+      "flag2": 94,
+      "flag3": 0,
+      "flag4": 0,
+      "flag5": 0,
+      "flag6": 0,
+      "flag7": 0,
+      "flag8": 0,
+      "flag9": 0,
+      "flag10": 0
+    }
+  },
+  {
+    "mod": "planetlist",
+    "xid": -3,
+    "error": 0,
+    "msg": {
+      "planet_count": 7,
+      "planet_count_max": 7,
+      "list": [
+        {
+          "pid": 150,
+          "planetname": "Firebug",
+          "image": "dry_7",
+          "position": "8:241:4",
+          "tempmin": 86,
+          "field_used": 148,
+          "field_max": 163,
+          "diameter": "12,767",
+          "moonid": 0,
+          "moonname": "",
+          "moonimage": "",
+          "iscurrent": false
+        },
+        {
+          "pid": 311,
+          "planetname": "main",
+          "image": "gas_2",
+          "position": "8:241:14",
+          "tempmin": -88,
+          "field_used": 157,
+          "field_max": 526,
+          "diameter": "22,935",
+          "moonid": 0,
+          "moonname": "",
+          "moonimage": "",
+          "iscurrent": false
+        },
+        {
+          "pid": 337,
+          "planetname": "\u6b96\u6c11\u661f",
+          "image": "gas_8",
+          "position": "8:241:15",
+          "tempmin": -146,
+          "field_used": 163,
+          "field_max": 299,
+          "diameter": "17,292",
+          "moonid": 0,
+          "moonname": "",
+          "moonimage": "",
+          "iscurrent": false
+        },
+        {
+          "pid": 596,
+          "planetname": "F\u5c0f\u53f7",
+          "image": "ice_4",
+          "position": "1:2:12",
+          "tempmin": -6,
+          "field_used": 162,
+          "field_max": 197,
+          "diameter": "14,036",
+          "moonid": 0,
+          "moonname": "",
+          "moonimage": "",
+          "iscurrent": true
+        },
+        {
+          "pid": 698,
+          "planetname": "\u6d41\u6d6a\u5730\u7403",
+          "image": "gas_6",
+          "position": "4:241:14",
+          "tempmin": -78,
+          "field_used": 152,
+          "field_max": 191,
+          "diameter": "13,820",
+          "moonid": 0,
+          "moonname": "",
+          "moonimage": "",
+          "iscurrent": false
+        },
+        {
+          "pid": 1465,
+          "planetname": "\u554a\u54c8",
+          "image": "desert_1",
+          "position": "8:241:1",
+          "tempmin": 258,
+          "field_used": 98,
+          "field_max": 153,
+          "diameter": "12,369",
+          "moonid": 0,
+          "moonname": "",
+          "moonimage": "",
+          "iscurrent": false
+        },
+        {
+          "pid": 2123,
+          "planetname": "\u6b96\u6c11\u661f",
+          "image": "dry_8",
+          "position": "4:241:4",
+          "tempmin": 53,
+          "field_used": 69,
+          "field_max": 294,
+          "diameter": "17,146",
+          "moonid": 0,
+          "moonname": "",
+          "moonimage": "",
+          "iscurrent": false
+        }
+      ]
+    }
+  }
+]
