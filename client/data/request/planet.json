@@ -1,0 +1,21 @@
+// get current planet data
+{
+  "mod":"planet"
+}
+// level up/down; research
+{
+  "mod":"planet",
+  "build_id": 3,
+  "build_count": 1
+}
+// cancel level up/down
+{
+  "mod":"planet",
+  "build_id": 3,
+  "build_key": "42vqgi4q_building"
+}
+// change current planet
+{
+  "mod":"planet",
+  "change_pid": 311
+}

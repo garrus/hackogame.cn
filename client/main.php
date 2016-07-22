@@ -7,7 +7,7 @@ define('AREA', 12);
 
 Game:
 $client = new \lib\Client(AREA);
-$request = new \request\CurrentPlanetQueue();
+$request = new \request\GetCurrentPlanetQueue();
 try {
 	/** @var \models\Queue $queue */
 	$queue = $request->execute($client);

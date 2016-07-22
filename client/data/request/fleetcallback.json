@@ -1,3 +1,5 @@
+// callback a fleet
 {
+  "mod":"fleetcallback",
   "fleet_key": "3_104862_104862_8-241-14_8-241-15_1x6lv9qd"
 }

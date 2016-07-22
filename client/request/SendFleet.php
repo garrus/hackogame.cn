@@ -1,11 +1,17 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: huyaowen
+ * Date: 16-7-21
+ * Time: 下午2:13
+ */
+
 namespace request;
 
 
 use lib\BaseRequest;
-use models\Queue;
 
-class CurrentPlanetQueue extends BaseRequest
+class SendFleet extends BaseRequest
 {
 
     /**
@@ -13,7 +19,7 @@ class CurrentPlanetQueue extends BaseRequest
      */
     public function getMod()
     {
-        return 'queue';
+        // TODO: Implement getMod() method.
     }
 
     /**
@@ -21,18 +27,14 @@ class CurrentPlanetQueue extends BaseRequest
      */
     public function getParams()
     {
-        return [
-            'mod' => 'planet',
-            'xid' => mt_rand(0, 2),
-        ];
+        // TODO: Implement getParams() method.
     }
 
     /**
      * @param $msg
-     * @return Queue
      */
     public function buildResult($msg)
     {
-        return new Queue($msg);
+        // TODO: Implement buildResult() method.
     }
 }

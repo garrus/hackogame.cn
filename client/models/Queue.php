@@ -2,10 +2,9 @@
 
 namespace models;
 
+use lib\ResponseObject;
 
-use lib\Object;
-
-class Queue extends Object
+class Queue extends ResponseObject
 {
     /**
      * @var QueueItem[]

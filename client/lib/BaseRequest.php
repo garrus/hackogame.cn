@@ -5,6 +5,8 @@ namespace lib;
 
 abstract class BaseRequest extends Object
 {
+    
+    protected $responseObj;
 
     /**
      * @return string
@@ -12,18 +14,24 @@ abstract class BaseRequest extends Object
     abstract public function getMod();
 
     /**
+     * Get any params except mod and xid
      * @return array
      */
-    abstract public function getParams();
+    public function getParams(){
+        return [];
+    }
 
     /**
-     * @param $msg
+     * @param ResponseObject $obj
      */
-    abstract public function buildResult($msg);
+    public function setResponseObject(ResponseObject $obj){
+        $this->responseObj = $obj;
+    }
 
-    
-    public function execute(Client $client){
-        
-        return $client->send($this);
+    /**
+     * @return ResponseObject
+     */
+    public function getResponseObj(){
+        return $this->responseObj;
     }
 }

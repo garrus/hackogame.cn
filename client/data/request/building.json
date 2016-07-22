@@ -1,0 +1,20 @@
+// construct
+{
+  "mod":"building",
+  "type":1
+}
+// tech
+{
+  "mod":"building",
+  "type":2
+}
+// ship
+{
+  "mod":"building",
+  "type":3
+}
+// defence
+{
+  "mod":"building",
+  "type":4
+}

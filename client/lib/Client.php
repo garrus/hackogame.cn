@@ -53,13 +53,23 @@ class Client extends Object
                 echo 'Result: '. print_r($data, true). PHP_EOL;
                 return false;
             }
-            switch ($object['mod']) {
-                case $request->getMod():
-                    return $request->buildResult($object['msg']);
-                case 'symbol':
-                    break;
+            
+            $mod = $object['mod'];
+            if ($mod == 'symbol') {
+                continue;
+            }
+            
+            $resObj = ResponseObject::factory($mod, $object['msg']);
+            if ($mod == $request->getMod()) {
+                $request->setResponseObject($resObj);
+            }
+            
+            switch ($mod) {
                 case 'queue':
-                    $this->handleQueue(new Queue($object['msg']));
+                    $this->handleQueue($resObj);
+                    break;
+                case 'event':
+                    $this->handleEvent($resObj);
                     break;
                 default:
                     break;
@@ -73,6 +83,10 @@ class Client extends Object
      * @param Queue $queue
      */
     protected function handleQueue(Queue $queue){
+        
+    }
+    
+    protected function handleEvent(Event $event){
         
     }
 
